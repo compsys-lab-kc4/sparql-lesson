@@ -1,0 +1,82 @@
+query1: 日本の水面積率
+
+
+SELECT distinct ?o
+WHERE {dbpedia:日本 prop-ja:水面積率 ?o.}
+
+query2: ProgrammingLanguage登場時期
+
+select distinct * where {
+?s rdf:type <http://dbpedia.org/ontology/ProgrammingLanguage>;
+<http://ja.dbpedia.org/property/登場時期> ?o.}order by ?o
+
+query3：日本の都道府県県庁所在地
+
+
+select distinct ?s ?o where {
+  ?s rdf:type dbpedia-owl:Place;
+     dbpedia-owl:wikiPageWikiLink category-ja:日本の都道府県;
+     prop-ja:所在地 ?o.
+}
+
+query4: サッカー日本代表出場選手
+
+
+select distinct ?s where {
+  ?s rdf:type dbpedia-owl:Person;
+  dbpedia-owl:wikiPageWikiLink dbpedia-ja:サッカー日本代表出場選手.
+
+}
+
+query5: :ユービーソフトが発行したゲーム
+
+
+
+SELECT distinct ?o ?s
+WHERE {
+?s dbpedia-ja:ユービーアイソフト ?o.
+?s dbpedia-owl:publisher dbpedia-ja:ユービーアイソフト.
+}
+
+query6:ps4またXboxONEで遊べるゲーム
+
+
+
+SELECT DISTINCT ?game ?compony WHERE {
+{?game dbpedia-owl:computingPlatform dbpedia-ja:PlayStation_4.
+  }
+UNION
+{?game dbpedia-owl:computingPlatform dbpedia-ja:Xbox_One.}
+  ?game dbpedia-owl:publisher ?compony.}
+GROUP BY ?game
+ORDER BY ?game
+
+query7:七大陸最高峰の名前
+
+select ?s ?o
+where
+{
+  ?s dbpedia-owl:wikiPageWikiLink category-ja:七大陸最高峰.
+  ?s rdf:type schema:Mountain.
+  ?s foaf:name ?name.
+}
+
+query8:日本の都道府県のdbpediaに載ってる有名人の数
+SELECT ?s count(?o) AS ?c
+WHERE { ?s rdf:type dbpedia-owl:Place;
+     dbpedia-owl:wikiPageWikiLink category-ja:日本の都道府県.
+     ?o dbpedia-owl:birthPlace ?s.
+   }order by ?c
+
+query9:ファイナルファンタジーシリーズの製作者
+
+SELECT ?s ?o
+WHERE {
+  ?s dbpedia-owl:series dbpedia-ja:ファイナルファンタジーシリーズ;
+ dbpedia-owl:writer ?o.}
+
+query10:dbpediaに載ってある漁港の数
+
+SELECT count(?s) ?o
+WHERE {?s dcterms:subject category-ja:日本の漁港
+  }
