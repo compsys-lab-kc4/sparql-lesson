@@ -8,5 +8,6 @@ SPARQ演習
 
 ## レポートの提出方法
 
-sparql-query.html を query1.html, query2.html, ..., query10.html にコ
-ピー．作成したSPARQL問合せを記入してリポジトリにコミットして提出する．
+1. sparql-query.html を query1.html, query2.html, ..., query10.html にコピー．
+1. SPARQL問合せを作成し，問合せの意味を問合せの下のtextareaに記入．
+1. 完成したらリポジトリにコミットして提出．
