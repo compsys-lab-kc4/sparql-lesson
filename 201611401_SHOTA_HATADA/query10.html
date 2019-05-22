@@ -16,7 +16,6 @@
       }
       d3sparql.htmltable(json, config)
     }
-
     function exec_offline() {
       d3.json("cache/interpro/1117-hk.json", render)
     }
@@ -39,15 +38,14 @@
       </form>
       <textarea id="sparql" class="span9" rows="15" cols="80">
 
-PREFIX dbpedia: <http://ja.dbpedia.org/resource/>   
-PREFIX dbp-­owl: <http://dbpedia.org/ontology/>
-SELECT ?leaderName     
-WHERE {dbpedia:東京都 dbp-­owl:leaderName ?leaderName .}
+    PREFIX dbpedia-owl:  <http://dbpedia.org/ontology/>
+    PREFIX category-ja: <http://ja.dbpedia.org/resource/Category:>
 
-      </textarea>
-      <h4>問合せの意味</h4>
-      <textarea id="explanation" class="span9" rows="15" cols="80">
-東京都のリーダー（都知事）は誰か？
+    select distinct ?name where {
+      dbpedia-ja:筑波大学 prop-ja:title ?name.
+      filter (regex(str(?name), "学類"))
+    }
+
       </textarea>
     </div>
     <div id="result"></div>
