@@ -39,12 +39,17 @@
       </form>
       <textarea id="sparql" class="span9" rows="15" cols="80">
 
-
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+select distinct count(?o) where {
+  ?s rdfs:label "筑波大学"@ja ;
+      ?p ?o.
+      FILTER(?p != dbpedia-owl:wikiPageWikiLink) .
+}
 
       </textarea>
       <h4>問合せの意味</h4>
       <textarea id="explanation" class="span9" rows="15" cols="80">
-
+rdfs:label 筑波大学の検索件数を取得するが，dbpedia-owl:wikiPageWikiLinkプロパティを除外する
       </textarea>
     </div>
     <div id="result"></div>

@@ -39,15 +39,17 @@
       </form>
       <textarea id="sparql" class="span9" rows="15" cols="80">
 
-PREFIX dbpedia: <http://ja.dbpedia.org/resource/>   
-PREFIX dbp-­owl: <http://dbpedia.org/ontology/>
-SELECT ?leaderName     
-WHERE {dbpedia:東京都 dbp-­owl:leaderName ?leaderName .}
-
+PREFIX dbpedia-ja: <http://ja.dbpedia.org/resource/>
+select distinct ?p ?o
+where { 
+    dbpedia-ja:つくば市 ?p ?o . 
+}
+ORDER BY DESC(?o)
+LIMIT 30
       </textarea>
       <h4>問合せの意味</h4>
       <textarea id="explanation" class="span9" rows="15" cols="80">
-東京都のリーダー（都知事）は誰か？
+つくば市の検索結果を?o DESCで並び替える。
       </textarea>
     </div>
     <div id="result"></div>

@@ -39,18 +39,22 @@
       </form>
       <textarea id="sparql" class="span9" rows="15" cols="80">
 
-select distinct * 
-where {
-  ?s prop-ja:隣接都道府県 ?o
-  FILTER(regex(str(?o), "城" )) .
+PREFIX dbpedia-ja: <http://ja.dbpedia.org/resource/>
+select distinct ?p ?o
+where { 
+    dbpedia-ja:三島中学校 ?p ?o . 
+    FILTER(regex(str(?o), "那須" )) .
+
 }
+ORDER BY DESC(?o)
+LIMIT 30
         
         
 
       </textarea>
       <h4>問合せの意味</h4>
       <textarea id="explanation" class="span9" rows="15" cols="80">
-部分一致検索で「城」が含まれる都道府県と，隣接している県の情報を参照する
+中学校の母校である，那須塩原市立三島中学校を見つける。
       </textarea>
     </div>
     <div id="result"></div>
