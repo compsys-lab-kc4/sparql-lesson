@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- saved from url=(0119)file:///C:/Users/yoss0/OneDrive/%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88/GitHub/sparql-lesson/query2.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  
+    <script src="./query2_files/d3.v3.min.js.ダウンロード"></script>
+    <script src="./query2_files/d3sparql.js.ダウンロード"></script>
+    <script>
+    function exec() {
+      var endpoint = d3.select("#endpoint").property("value")
+      var sparql = d3.select("#sparql").property("value")
+      d3sparql.query(endpoint, sparql, render)
+    }
+    function render(json) {
+      var config = {
+        "selector": "#result"
+      }
+      d3sparql.htmltable(json, config)
+    }
+
+    function exec_offline() {
+      d3.json("cache/interpro/1117-hk.json", render)
+    }
+    function toggle() {
+      d3sparql.toggle()
+    }
+    </script>
+  </head>
+  <body>
+    <div id="query" style="margin: 10px">
+      <h1>d3htmltable</h1>
+      <form class="form-inline">
+        <label>SPARQL endpoint:</label>
+        <div class="input-append">
+          <input id="endpoint" class="span5" value="http://ja.dbpedia.org/sparql" type="text">
+          <button class="btn" type="button" onclick="exec()">Query</button>
+          <button class="btn" type="button" onclick="exec_offline()">Use cache</button>
+          <button class="btn" type="button" onclick="toggle()"><i id="button" class="icon-chevron-up"></i></button>
+        </div>
+      </form>
+      <textarea id="sparql" class="span9" rows="15" cols="80">PREFIX dbpedia: <http://ja.dbpedia.org/resource/>   
+PREFIX dbp-­owl: <http://dbpedia.org/ontology/>
+SELECT *    
+WHERE {?s prop-ja:隣接都道府県 ?o .}
+      </textarea>
+      <h4>問合せの意味</h4>
+      <textarea id="explanation" class="span9" rows="15" cols="80">隣接する都道府県の全ての組み合わせ
+      </textarea>
+    </div>
+    <div id="result"><div class="d3sparql htmltable"><table class="table table-bordered" style="margin: 10px;"><thead><tr><th style="background: rgb(238, 238, 238); text-transform: capitalize;">s</th><th style="background: rgb(238, 238, 238); text-transform: capitalize;">o</th></tr></thead><tbody><tr><td>http://ja.dbpedia.org/resource/長崎県</td><td>http://ja.dbpedia.org/resource/佐賀県</td></tr><tr><td>http://ja.dbpedia.org/resource/福岡県</td><td>http://ja.dbpedia.org/resource/佐賀県</td></tr><tr><td>http://ja.dbpedia.org/resource/和歌山県</td><td>http://ja.dbpedia.org/resource/兵庫県</td></tr><tr><td>http://ja.dbpedia.org/resource/岡山県</td><td>http://ja.dbpedia.org/resource/兵庫県</td></tr><tr><td>http://ja.dbpedia.org/resource/徳島県</td><td>http://ja.dbpedia.org/resource/兵庫県</td></tr><tr><td>http://ja.dbpedia.org/resource/香川県</td><td>http://ja.dbpedia.org/resource/兵庫県</td></tr><tr><td>http://ja.dbpedia.org/resource/鳥取県</td><td>http://ja.dbpedia.org/resource/兵庫県</td></tr><tr><td>http://ja.dbpedia.org/resource/京都府</td><td>http://ja.dbpedia.org/resource/兵庫県</td></tr><tr><td>http://ja.dbpedia.org/resource/大阪府</td><td>http://ja.dbpedia.org/resource/兵庫県</td></tr><tr><td>http://ja.dbpedia.org/resource/青森県</td><td>http://ja.dbpedia.org/resource/北海道</td></tr></tbody></table></div></div>
+  
+
+</body></html>

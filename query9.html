@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- saved from url=(0119)file:///C:/Users/yoss0/OneDrive/%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88/GitHub/sparql-lesson/query9.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  
+    <script src="./query9_files/d3.v3.min.js.ダウンロード"></script>
+    <script src="./query9_files/d3sparql.js.ダウンロード"></script>
+    <script>
+    function exec() {
+      var endpoint = d3.select("#endpoint").property("value")
+      var sparql = d3.select("#sparql").property("value")
+      d3sparql.query(endpoint, sparql, render)
+    }
+    function render(json) {
+      var config = {
+        "selector": "#result"
+      }
+      d3sparql.htmltable(json, config)
+    }
+
+    function exec_offline() {
+      d3.json("cache/interpro/1117-hk.json", render)
+    }
+    function toggle() {
+      d3sparql.toggle()
+    }
+    </script>
+  </head>
+  <body>
+    <div id="query" style="margin: 10px">
+      <h1>d3htmltable</h1>
+      <form class="form-inline">
+        <label>SPARQL endpoint:</label>
+        <div class="input-append">
+          <input id="endpoint" class="span5" value="http://ja.dbpedia.org/sparql" type="text">
+          <button class="btn" type="button" onclick="exec()">Query</button>
+          <button class="btn" type="button" onclick="exec_offline()">Use cache</button>
+          <button class="btn" type="button" onclick="toggle()"><i id="button" class="icon-chevron-up"></i></button>
+        </div>
+      </form>
+      <textarea id="sparql" class="span9" rows="15" cols="80">
+PREFIX dbpedia: <http://ja.dbpedia.org/resource/>   
+PREFIX dbp-­owl: <http://dbpedia.org/ontology/>
+SELECT ?s ?birthday    
+WHERE {{?s dcterms:subject category-ja:フリーアナウンサー .}
+       {?s prop-ja:生年月日 ?birthday}
+}ORDER BY DESC(?birthday)
+LIMIT 100
+
+      </textarea>
+      <h4>問合せの意味</h4>
+      <textarea id="explanation" class="span9" rows="15" cols="80">
+フリーアナウンサーを生年月日が最近の順に100人表示
+      </textarea>
+    </div>
+    <div id="result"><div class="d3sparql htmltable"><table class="table table-bordered" style="margin: 10px;"><thead><tr><th style="background: rgb(238, 238, 238); text-transform: capitalize;">s</th><th style="background: rgb(238, 238, 238); text-transform: capitalize;">birthday</th></tr></thead><tbody><tr><td>http://ja.dbpedia.org/resource/山本里菜</td><td>1994-06-22</td></tr><tr><td>http://ja.dbpedia.org/resource/相野愛</td><td>1991-09-07</td></tr><tr><td>http://ja.dbpedia.org/resource/安河内程子</td><td>1990-02-20</td></tr><tr><td>http://ja.dbpedia.org/resource/天明麻衣子</td><td>1989-07-08</td></tr><tr><td>http://ja.dbpedia.org/resource/佐々木謙介</td><td>1938</td></tr><tr><td>http://ja.dbpedia.org/resource/岡副麻希</td><td>1992-07-29</td></tr><tr><td>http://ja.dbpedia.org/resource/大畠寛美</td><td>1992-01-22</td></tr><tr><td>http://ja.dbpedia.org/resource/曽田麻衣子</td><td>1990-10-24</td></tr><tr><td>http://ja.dbpedia.org/resource/谷中麻里衣</td><td>1990-08-30</td></tr><tr><td>http://ja.dbpedia.org/resource/新井恵理那</td><td>1989-12-22</td></tr><tr><td>http://ja.dbpedia.org/resource/松本圭世</td><td>1989-08-06</td></tr><tr><td>http://ja.dbpedia.org/resource/染井明希子</td><td>1989-05-17</td></tr><tr><td>http://ja.dbpedia.org/resource/菊地舞美</td><td>1988-12-28</td></tr><tr><td>http://ja.dbpedia.org/resource/市川いずみ</td><td>1988-01-19</td></tr><tr><td>http://ja.dbpedia.org/resource/堤友香</td><td>1987-08-13</td></tr><tr><td>http://ja.dbpedia.org/resource/吉谷あゆ</td><td>1982</td></tr><tr><td>http://ja.dbpedia.org/resource/加藤多佳子</td><td>1989-10-29</td></tr><tr><td>http://ja.dbpedia.org/resource/岸田あさみ</td><td>1988-09-20</td></tr><tr><td>http://ja.dbpedia.org/resource/上杉桜子</td><td>1987-12-29</td></tr><tr><td>http://ja.dbpedia.org/resource/吉田奈央_(フリーアナウンサー)</td><td>1987-09-03</td></tr><tr><td>http://ja.dbpedia.org/resource/坂木萌子</td><td>1987-03-12</td></tr><tr><td>http://ja.dbpedia.org/resource/小野木梨衣</td><td>1987-02-05</td></tr><tr><td>http://ja.dbpedia.org/resource/栗林さみ</td><td>1987-01-04</td></tr><tr><td>http://ja.dbpedia.org/resource/小堺翔太</td><td>1986-12-09</td></tr><tr><td>http://ja.dbpedia.org/resource/内田敦子</td><td>1986-12-05</td></tr><tr><td>http://ja.dbpedia.org/resource/長野美郷</td><td>1986-11-27</td></tr><tr><td>http://ja.dbpedia.org/resource/大城蘭</td><td>1986-08-31</td></tr><tr><td>http://ja.dbpedia.org/resource/大河原あゆみ</td><td>1986-04-19</td></tr><tr><td>http://ja.dbpedia.org/resource/荒木麻里子</td><td>1986-01-02</td></tr><tr><td>http://ja.dbpedia.org/resource/石河茉美</td><td>1983-12-29</td></tr><tr><td>http://ja.dbpedia.org/resource/眞方富美子</td><td>1983-09-15</td></tr><tr><td>http://ja.dbpedia.org/resource/生田博巳</td><td>1929</td></tr><tr><td>http://ja.dbpedia.org/resource/高瀬美子</td><td>2012-02-01</td></tr><tr><td>http://ja.dbpedia.org/resource/牧野結美</td><td>1990-01-18</td></tr><tr><td>http://ja.dbpedia.org/resource/石井栞</td><td>1988-11-26</td></tr><tr><td>http://ja.dbpedia.org/resource/平川彩佳</td><td>1988-10-27</td></tr><tr><td>http://ja.dbpedia.org/resource/上野優花</td><td>1988-08-09</td></tr><tr><td>http://ja.dbpedia.org/resource/槙あやな</td><td>1988-07-15</td></tr><tr><td>http://ja.dbpedia.org/resource/西山加朱紗</td><td>1988-06-22</td></tr><tr><td>http://ja.dbpedia.org/resource/伊波紗友里</td><td>1988-04-01</td></tr><tr><td>http://ja.dbpedia.org/resource/藤満香</td><td>1988-01-13</td></tr><tr><td>http://ja.dbpedia.org/resource/寺田ちひろ</td><td>1987-12-23</td></tr><tr><td>http://ja.dbpedia.org/resource/中橋舞</td><td>1987-12-23</td></tr><tr><td>http://ja.dbpedia.org/resource/石井優香</td><td>1987-11-05</td></tr><tr><td>http://ja.dbpedia.org/resource/井上英里香</td><td>1987-10-30</td></tr><tr><td>http://ja.dbpedia.org/resource/中島彩</td><td>1987-08-01</td></tr><tr><td>http://ja.dbpedia.org/resource/高見侑里</td><td>1987-06-30</td></tr><tr><td>http://ja.dbpedia.org/resource/道岡桃子</td><td>1987-06-12</td></tr><tr><td>http://ja.dbpedia.org/resource/佐々木真奈美_(アナウンサー)</td><td>1987-06-05</td></tr><tr><td>http://ja.dbpedia.org/resource/鎌田友里</td><td>1987-05-29</td></tr><tr><td>http://ja.dbpedia.org/resource/栗山麗美</td><td>1987-05-16</td></tr><tr><td>http://ja.dbpedia.org/resource/高橋麻美_(アナウンサー)</td><td>1987-04-21</td></tr><tr><td>http://ja.dbpedia.org/resource/田中千佳</td><td>1987-03-25</td></tr><tr><td>http://ja.dbpedia.org/resource/河野恵</td><td>1987-01-09</td></tr><tr><td>http://ja.dbpedia.org/resource/田中みな実</td><td>1986-11-23</td></tr><tr><td>http://ja.dbpedia.org/resource/角野友紀</td><td>1986-10-23</td></tr><tr><td>http://ja.dbpedia.org/resource/楪望</td><td>1986-10-03</td></tr><tr><td>http://ja.dbpedia.org/resource/上田まりえ</td><td>1986-09-29</td></tr><tr><td>http://ja.dbpedia.org/resource/香屋ルリコ</td><td>1986-09-17</td></tr><tr><td>http://ja.dbpedia.org/resource/白ヶ澤香織</td><td>1986-09-15</td></tr><tr><td>http://ja.dbpedia.org/resource/笹倉千裕</td><td>1986-09-02</td></tr><tr><td>http://ja.dbpedia.org/resource/小峰麻由</td><td>1986-08-18</td></tr><tr><td>http://ja.dbpedia.org/resource/角田佐哉香</td><td>1986-07-11</td></tr><tr><td>http://ja.dbpedia.org/resource/深津瑠美</td><td>1986-06-24</td></tr><tr><td>http://ja.dbpedia.org/resource/小倉星羅</td><td>1986-03-02</td></tr><tr><td>http://ja.dbpedia.org/resource/長崎真友子</td><td>1986-02-12</td></tr><tr><td>http://ja.dbpedia.org/resource/佐藤千晶</td><td>1986-01-25</td></tr><tr><td>http://ja.dbpedia.org/resource/田岡咲香</td><td>1985-12-13</td></tr><tr><td>http://ja.dbpedia.org/resource/岸田彩加</td><td>1985-11-22</td></tr><tr><td>http://ja.dbpedia.org/resource/舩岳美希</td><td>1985-10-28</td></tr><tr><td>http://ja.dbpedia.org/resource/小林悠_(アナウンサー)</td><td>1985-09-26</td></tr><tr><td>http://ja.dbpedia.org/resource/久下真以子</td><td>1985-08-31</td></tr><tr><td>http://ja.dbpedia.org/resource/西島まどか</td><td>1985-08-16</td></tr><tr><td>http://ja.dbpedia.org/resource/吉村優</td><td>1985-08-07</td></tr><tr><td>http://ja.dbpedia.org/resource/八木ひとみ</td><td>1985-08-01</td></tr><tr><td>http://ja.dbpedia.org/resource/成嶋早穂</td><td>1985-07-19</td></tr><tr><td>http://ja.dbpedia.org/resource/樋田かおり</td><td>1985-06-27</td></tr><tr><td>http://ja.dbpedia.org/resource/三浦マキ</td><td>1985-06-25</td></tr><tr><td>http://ja.dbpedia.org/resource/酒井千佳</td><td>1985-05-18</td></tr><tr><td>http://ja.dbpedia.org/resource/菊池優</td><td>1985-05-01</td></tr><tr><td>http://ja.dbpedia.org/resource/名越涼子</td><td>1985-03-28</td></tr><tr><td>http://ja.dbpedia.org/resource/中村亜裕美</td><td>1985-03-20</td></tr><tr><td>http://ja.dbpedia.org/resource/倉林知子</td><td>1985-03-16</td></tr><tr><td>http://ja.dbpedia.org/resource/木村英里</td><td>1985-03-09</td></tr><tr><td>http://ja.dbpedia.org/resource/柏田久美子</td><td>1985-02-22</td></tr><tr><td>http://ja.dbpedia.org/resource/名和田知加</td><td>1985-02-17</td></tr><tr><td>http://ja.dbpedia.org/resource/高原由香子</td><td>1985-02-02</td></tr><tr><td>http://ja.dbpedia.org/resource/中込真理子</td><td>1985-01-30</td></tr><tr><td>http://ja.dbpedia.org/resource/松澤千晶</td><td>1985-01-28</td></tr><tr><td>http://ja.dbpedia.org/resource/金子由香梨</td><td>1985-01-17</td></tr><tr><td>http://ja.dbpedia.org/resource/金子由実</td><td>1984-12-29</td></tr><tr><td>http://ja.dbpedia.org/resource/橋口侑佳</td><td>1984-12-26</td></tr><tr><td>http://ja.dbpedia.org/resource/千賀絢子</td><td>1984-10-20</td></tr><tr><td>http://ja.dbpedia.org/resource/斎藤裕美</td><td>1984-10-10</td></tr><tr><td>http://ja.dbpedia.org/resource/氏田朋子</td><td>1984-09-25</td></tr><tr><td>http://ja.dbpedia.org/resource/木村佳那子</td><td>1984-09-07</td></tr><tr><td>http://ja.dbpedia.org/resource/高野萌</td><td>1984-08-21</td></tr><tr><td>http://ja.dbpedia.org/resource/夏目三久</td><td>1984-08-06</td></tr><tr><td>http://ja.dbpedia.org/resource/草野真梨子</td><td>1984-07-10</td></tr><tr><td>http://ja.dbpedia.org/resource/小川友佳</td><td>1984-06-27</td></tr></tbody></table></div></div>
+  
+
+</body></html>
