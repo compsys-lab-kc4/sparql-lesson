@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <script src="d3.v3.min.js"></script>
+    <script src="d3sparql.js"></script>
+    <script>
+    function exec() {
+      var endpoint = d3.select("#endpoint").property("value")
+      var sparql = d3.select("#sparql").property("value")
+      d3sparql.query(endpoint, sparql, render)
+    }
+    function render(json) {
+      var config = {
+        "selector": "#result"
+      }
+      d3sparql.htmltable(json, config)
+    }
+
+    function exec_offline() {
+      d3.json("cache/interpro/1117-hk.json", render)
+    }
+    function toggle() {
+      d3sparql.toggle()
+    }
+    </script>
+  </head>
+  <body>
+    <div id="query" style="margin: 10px">
+      <h1>d3htmltable</h1>
+      <form class="form-inline">
+        <label>SPARQL endpoint:</label>
+        <div class="input-append">
+          <input id="endpoint" class="span5" value="http://ja.dbpedia.org/sparql" type="text">
+          <button class="btn" type="button" onclick="exec()">Query</button>
+          <button class="btn" type="button" onclick="exec_offline()">Use cache</button>
+          <button class="btn" type="button" onclick="toggle()"><i id="button" class="icon-chevron-up"></i></button>
+        </div>
+      </form>
+      <textarea id="sparql" class="span9" rows="15" cols="80">
+
+PREFIX prop-ja: <http://ja.dbpedia.org/property/>
+PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbpedia-ja: <http://ja.dbpedia.org/resource/>
+PREFIX category-ja: <http://ja.dbpedia.org/resource/Category:>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+select distinct ?s ?pref where {
+  {?s rdf:type dbpedia-owl:Comedian;
+        dbpedia-owl:birthPlace dbpedia-ja:千葉県.}
+  UNION
+  {?s rdf:type dbpedia-owl:Comedian;
+        dbpedia-owl:birthPlace dbpedia-ja:東京都.}
+  ?s dbpedia-owl:birthPlace ?pref.
+  ?pref rdf:type dbpedia-owl:PopulatedPlace.
+} ORDER BY ?pref
+
+      </textarea>
+      <h4>問合せの意味</h4>
+      <textarea id="explanation" class="span9" rows="15" cols="80">
+千葉県か東京都が出身地のお笑い芸人の一覧
+      </textarea>
+
+      <h4>結果</h4>
+      <textarea id="result" class="span9" rows="15" cols="80">
+http://ja.dbpedia.org/resource/LOVE_ME_DO_(芸人)	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/脳みそ夫	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/小堺一機	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/渡辺正行	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/きたろう	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/ラッシャー板前	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/猫ひろし	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/金成公信	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/まちゃまちゃ	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/ヒデ_(お笑い芸人)	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/ホリ_(タレント)	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/篠塚満由美	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/にしおかすみこ	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/ゆうたろう	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/山里亮太	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/飯塚悟志	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/佐々木孫悟空	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/花香よしあき	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/鈴木策三	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/高松新一	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/AMEMIYA	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/アジアンビューティー_(お笑い芸人)	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/イマニヤスヒサ	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/ズドン	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/トミドコロ	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/白井鉄也	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/菊地浩輔	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/超能力少年ダイジ	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/カジ_(お笑い芸人)	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/マリカ_(お笑い芸人)	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/マンボウやしろ	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/手賀沼ジュン	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/徳井健太	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/小出あかり	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/石出奈々子	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/鈴川絢子	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/競輪小僧	http://ja.dbpedia.org/resource/千葉県
+http://ja.dbpedia.org/resource/超特急ひかり	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/黒ラブ教授	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/伊東四朗__伊東_四朗__1	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/片岡鶴太郎__片岡_鶴太郎__1	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ビートたけし	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/伊集院光	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/なべやかん	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ハナ肇	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ヒロミ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/三波伸介_(初代)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/内山信二	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/山田邦子	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/木梨憲武	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/栗田貫一	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/桂三木助_(4代目)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/石橋貴明	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/荒井注	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/長井秀和	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/関根勤	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/高田文夫	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ラッキィ池田	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ルー大柴	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/仲本工事	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/加藤茶	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/萩本欽一	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/コロムビア・トップ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/前田健_(タレント)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/大竹まこと	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/牧伸二	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/車だん吉	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/野沢直子	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/イジリー岡田	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ホーキング青山	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/三遊亭とむ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/大竹一樹	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/東貴博	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/深沢邦之	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/玉袋筋太郎	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/田上よしえ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/石塚義之	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/関暁夫	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/飯尾和樹	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/いとうあさこ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/くまだまさし	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/はいじぃ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/コウメ太夫	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/三波伸介_(2代目)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/今立進	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/安田和博	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/星ルイス	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/東八郎	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/竹内康晃	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/長州小力	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/高橋健一_(お笑い芸人)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ですよ。	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/なべおさみ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/みよこ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ゆうぞう_(ものまねタレント)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/カール北川	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/グレート義太夫	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/コロムビア・ライト	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/マービンJr.	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/住田隆	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/佐藤あつし_(コメディアン)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/入江慎也	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/吉田大吾	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/増谷キートン	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/大川豊	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/山下真治	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/志村けん	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/慶	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/戸塚睦夫	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/星野卓也	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/杉浦双亮	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/東朋宏	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/林家パー子	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/江戸家猫八_(4代目)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/矢部太郎	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/笑福亭圓笑_(4代目)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/角田晃広	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/鈴木奈都	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/KICK☆	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/こにわ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ゆってぃ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/よしこさん	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/オーノ泰広	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/タケト	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ビューティーこくぶ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ピクニック_(お笑い芸人)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/世界のうめざわ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/安井順平	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/安達しほり	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/庄司智春	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/村上純	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/田村ゆきこ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/矢作兼	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/鬼頭真也	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/AYU_(ものまねタレント)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/Theかれー王	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/YUJI_KOITO	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/Β_(お笑い芸人)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ぐたく	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ねづっち	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/まちだあきこ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/アナログタロウ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/エド・はるみ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/カズミファイブ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/スマイリーキクチ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/フジタ_(お笑い芸人)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/三村マサカズ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/中島保	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/児嶋一哉	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/品川祐	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/国井咲也	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/姉御ぉゆりか	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/安藤なつ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/岩崎う大	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/川島章良	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/我人祥太	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/柳原可奈子	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/柳家花緑	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/森田拓馬	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/浜ロン	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/渡部建	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/田中裕二_(お笑い芸人)	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/若林正恭	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/藤田かおる	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/とくこ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ほいけんた	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/サンキュータツオ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ビトタケシ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/寅人	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/小木博明	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/小杉まりも	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/箕輪はるか	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/肥後千暁	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/菅良太郎	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/足立区立OKO	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/馬王	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/あきと	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/アル北郷	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ジーニー堤	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/セクシーJ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ハブサービス	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ヲタル	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/原俊作	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/平野ノラ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/椿鬼奴	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/浦島こうじ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/西村ヒロチョ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/近藤春菜	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/わたなべるんるん	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/ナポ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/マツモトクラブ	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/並木一路	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/武家の女	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/武田一人	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/谷+1。	http://ja.dbpedia.org/resource/東京都
+http://ja.dbpedia.org/resource/志村けん	http://ja.dbpedia.org/resource/東村山市
+http://ja.dbpedia.org/resource/加藤茶	http://ja.dbpedia.org/resource/福島県
+      </textarea>
+
+    </div>
+  </body>
+</html>
