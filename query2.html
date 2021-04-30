@@ -46,9 +46,17 @@
           </button>
         </div>
       </form>
-      <textarea id="sparql" class="span9" rows="15" cols="80"></textarea>
+      <textarea id="sparql" class="span9" rows="15" cols="80">
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+select distinct * where {
+  ?s rdfs:label "茨城県"@ja .
+} LIMIT 100
+      </textarea>
       <h4>問合せの意味</h4>
-      <textarea id="explanation" class="span9" rows="15" cols="80"></textarea>
+      <textarea id="explanation" class="span9" rows="15" cols="80">
+ラベルに茨城県を含む主語
+      </textarea>
     </div>
     <div id="result"></div>
   </body>

@@ -46,9 +46,17 @@
           </button>
         </div>
       </form>
-      <textarea id="sparql" class="span9" rows="15" cols="80"></textarea>
+      <textarea id="sparql" class="span9" rows="15" cols="80">
+select distinct ?p where {
+  ?s <http://ja.dbpedia.org/property/自治体> ?o ;
+     ?p ?o .
+}
+order by asc(UCASE(str(?p)))
+      </textarea>
       <h4>問合せの意味</h4>
-      <textarea id="explanation" class="span9" rows="15" cols="80"></textarea>
+      <textarea id="explanation" class="span9" rows="15" cols="80">
+http://ja.dbpedia.org/property/自治体 を持つ主語のプロパティ一覧
+      </textarea>
     </div>
     <div id="result"></div>
   </body>

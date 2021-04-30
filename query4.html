@@ -46,9 +46,18 @@
           </button>
         </div>
       </form>
-      <textarea id="sparql" class="span9" rows="15" cols="80"></textarea>
+      <textarea id="sparql" class="span9" rows="15" cols="80">
+select distinct ?o where {
+  ?s <http://dbpedia.org/ontology/location> <http://ja.dbpedia.org/resource/茨城県> ;
+     <http://dbpedia.org/ontology/neighboringMunicipality> ?o .
+}
+LIMIT 10
+OFFSET 10
+      </textarea>
       <h4>問合せの意味</h4>
-      <textarea id="explanation" class="span9" rows="15" cols="80"></textarea>
+      <textarea id="explanation" class="span9" rows="15" cols="80">
+茨城県の市町村次の10件
+      </textarea>
     </div>
     <div id="result"></div>
   </body>

@@ -46,9 +46,19 @@
           </button>
         </div>
       </form>
-      <textarea id="sparql" class="span9" rows="15" cols="80"></textarea>
+      <textarea id="sparql" class="span9" rows="15" cols="80">
+prefix resource: <http://ja.dbpedia.org/resource/>
+prefix ontology: <http://dbpedia.org/ontology/>
+
+select distinct ?o where {
+  resource:つくば市 ?p ?o ;
+   ontology:postalCode ?o .
+}
+      </textarea>
       <h4>問合せの意味</h4>
-      <textarea id="explanation" class="span9" rows="15" cols="80"></textarea>
+      <textarea id="explanation" class="span9" rows="15" cols="80">
+つくば市の住所
+      </textarea>
     </div>
     <div id="result"></div>
   </body>

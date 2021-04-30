@@ -46,9 +46,19 @@
           </button>
         </div>
       </form>
-      <textarea id="sparql" class="span9" rows="15" cols="80"></textarea>
+      <textarea id="sparql" class="span9" rows="15" cols="80">
+prefix dbpedia: <http://ja.dbpedia.org/resource/>
+prefix ontlogy: <http://dbpedia.org/ontology/>
+
+select distinct * where {
+  dbpedia:2000年 ?p ?o.
+  filter (?p != ontlogy:wikiPageWikiLink) .
+}
+      </textarea>
       <h4>問合せの意味</h4>
-      <textarea id="explanation" class="span9" rows="15" cols="80"></textarea>
+      <textarea id="explanation" class="span9" rows="15" cols="80">
+dbpedia:2000年の結果からontlogy:wikiPageWikiLinkを除外した結果</textarea
+      >
     </div>
     <div id="result"></div>
   </body>

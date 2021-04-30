@@ -46,9 +46,21 @@
           </button>
         </div>
       </form>
-      <textarea id="sparql" class="span9" rows="15" cols="80"></textarea>
+      <textarea id="sparql" class="span9" rows="15" cols="80">
+PREFIX dbpedia-owl:  <http://dbpedia.org/ontology/>
+PREFIX category-ja: <http://ja.dbpedia.org/resource/Category:>
+
+select distinct ?s count(?o) AS ?c where {
+  ?s rdf:type dbpedia-owl:Place .
+  ?s dbpedia-owl:wikiPageWikiLink category-ja:日本の都道府県 .
+  ?s dbpedia-owl:wikiPageWikiLink ?o .
+}
+order by desc(?c)
+      </textarea>
       <h4>問合せの意味</h4>
-      <textarea id="explanation" class="span9" rows="15" cols="80"></textarea>
+      <textarea id="explanation" class="span9" rows="15" cols="80">
+魅力度ランキング
+      </textarea>
     </div>
     <div id="result"></div>
   </body>
