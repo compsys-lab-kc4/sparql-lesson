@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <script src="d3.v3.min.js"></script>
+    <script src="d3sparql.js"></script>
+    <script>
+    function exec() {
+      var endpoint = d3.select("#endpoint").property("value")
+      var sparql = d3.select("#sparql").property("value")
+      d3sparql.query(endpoint, sparql, render)
+    }
+    function render(json) {
+      var config = {
+        "selector": "#result"
+      }
+      d3sparql.htmltable(json, config)
+    }
+
+    function exec_offline() {
+      d3.json("cache/interpro/1117-hk.json", render)
+    }
+    function toggle() {
+      d3sparql.toggle()
+    }
+    </script>
+  </head>
+  <body>
+    <div id="query" style="margin: 10px">
+      <h1>d3htmltable</h1>
+      <form class="form-inline">
+        <label>SPARQL endpoint:</label>
+        <div class="input-append">
+          <input id="endpoint" class="span5" value="http://ja.dbpedia.org/sparql" type="text">
+          <button class="btn" type="button" onclick="exec()">Query</button>
+          <button class="btn" type="button" onclick="exec_offline()">Use cache</button>
+          <button class="btn" type="button" onclick="toggle()"><i id="button" class="icon-chevron-up"></i></button>
+        </div>
+      </form>
+      <textarea id="sparql" class="span9" rows="15" cols="80">
+
+PREFIX prop-ja: <http://ja.dbpedia.org/property/>
+PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dbpedia-ja: <http://ja.dbpedia.org/resource/>
+PREFIX category-ja: <http://ja.dbpedia.org/resource/Category:>
+
+select distinct ?pref (count(?s) AS ?c) where {
+  ?pref rdf:type dbpedia-owl:Place.
+  ?pref dcterms:subject category-ja:日本の都道府県.
+  ?s rdf:type dbpedia-owl:Comedian;
+        dbpedia-owl:birthPlace ?pref.
+} GROUP BY ?pref
+ORDER BY ?c
+
+      </textarea>
+      <h4>問合せの意味</h4>
+      <textarea id="explanation" class="span9" rows="15" cols="80">
+各県ごとのお笑い芸人の数を昇順に並べたもの。
+      </textarea>
+
+      <h4>結果</h4>
+      <textarea id="result" class="span9" rows="15" cols="80">
+http://ja.dbpedia.org/resource/高知県	2
+http://ja.dbpedia.org/resource/富山県	3
+http://ja.dbpedia.org/resource/石川県	3
+http://ja.dbpedia.org/resource/岩手県	4
+http://ja.dbpedia.org/resource/島根県	4
+http://ja.dbpedia.org/resource/福井県	4
+http://ja.dbpedia.org/resource/宮崎県	4
+http://ja.dbpedia.org/resource/三重県	4
+http://ja.dbpedia.org/resource/香川県	5
+http://ja.dbpedia.org/resource/鳥取県	5
+http://ja.dbpedia.org/resource/山形県	5
+http://ja.dbpedia.org/resource/和歌山県	5
+http://ja.dbpedia.org/resource/大分県	5
+http://ja.dbpedia.org/resource/徳島県	5
+http://ja.dbpedia.org/resource/秋田県	5
+http://ja.dbpedia.org/resource/青森県	6
+http://ja.dbpedia.org/resource/佐賀県	6
+http://ja.dbpedia.org/resource/山梨県	6
+http://ja.dbpedia.org/resource/長崎県	7
+http://ja.dbpedia.org/resource/山口県	8
+http://ja.dbpedia.org/resource/栃木県	8
+http://ja.dbpedia.org/resource/岐阜県	8
+http://ja.dbpedia.org/resource/新潟県	9
+http://ja.dbpedia.org/resource/滋賀県	10
+http://ja.dbpedia.org/resource/群馬県	10
+http://ja.dbpedia.org/resource/宮城県	11
+http://ja.dbpedia.org/resource/鹿児島県	12
+http://ja.dbpedia.org/resource/茨城県	13
+http://ja.dbpedia.org/resource/奈良県	13
+http://ja.dbpedia.org/resource/愛媛県	13
+http://ja.dbpedia.org/resource/岡山県	14
+http://ja.dbpedia.org/resource/長野県	14
+http://ja.dbpedia.org/resource/沖縄県	14
+http://ja.dbpedia.org/resource/福島県	14
+http://ja.dbpedia.org/resource/熊本県	15
+http://ja.dbpedia.org/resource/広島県	25
+http://ja.dbpedia.org/resource/静岡県	26
+http://ja.dbpedia.org/resource/愛知県	26
+http://ja.dbpedia.org/resource/北海道	28
+http://ja.dbpedia.org/resource/京都府	28
+http://ja.dbpedia.org/resource/千葉県	37
+http://ja.dbpedia.org/resource/福岡県	43
+http://ja.dbpedia.org/resource/埼玉県	49
+http://ja.dbpedia.org/resource/神奈川県	51
+http://ja.dbpedia.org/resource/兵庫県	58
+http://ja.dbpedia.org/resource/東京都	158
+http://ja.dbpedia.org/resource/大阪府	165
+      </textarea>
+
+    </div>
+  </body>
+</html>
